@@ -40,4 +40,9 @@
         android:layout_height="wrap_content"
         android:text="@string/done_label"/>
 
+    <Spinner
+        android:id="@+id/task_category"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
 </LinearLayout>

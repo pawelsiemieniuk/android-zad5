@@ -8,9 +8,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -30,6 +33,7 @@ public class TaskFragment extends Fragment {
     private EditText nameField;
     private EditText dateField;
     private CheckBox doneCheckBox;
+    private Spinner categorySpinner;
 
     public static TaskFragment newInstance(UUID taskId) {
         Bundle bundle = new Bundle();
@@ -55,6 +59,7 @@ public class TaskFragment extends Fragment {
         nameField    = view.findViewById(R.id.task_name);
         dateField    = view.findViewById(R.id.task_date);
         doneCheckBox = view.findViewById(R.id.task_done);
+        categorySpinner = view.findViewById(R.id.task_category);
 
         nameField.addTextChangedListener(new TextWatcher() {
             @Override
@@ -91,6 +96,19 @@ public class TaskFragment extends Fragment {
 
         doneCheckBox.setChecked(task.isDone());
         doneCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> task.setDone(isChecked));
+
+        categorySpinner.setAdapter(new ArrayAdapter<>(this.getContext(), android.R.layout.simple_spinner_item, Category.values()));
+        categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                task.setCategory(Category.values()[position]);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+        categorySpinner.setSelection(task.getCategory().ordinal());
 
         return view;
     }
