@@ -1,10 +1,14 @@
 package com.example.zad5;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -54,6 +58,8 @@ public class TaskListFragment extends Fragment {
 
         private TextView nameTextView;
         private TextView dateTextView;
+        private ImageView categoryImageView;
+        private CheckBox statusCheckBox;
 
         public TaskHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.list_item_task, parent, false));
@@ -61,12 +67,29 @@ public class TaskListFragment extends Fragment {
 
             nameTextView = itemView.findViewById(R.id.task_item_name);
             dateTextView = itemView.findViewById(R.id.task_item_date);
+            categoryImageView = itemView.findViewById(R.id.task_item_category);
+            statusCheckBox = itemView.findViewById(R.id.task_item_status);
         }
 
         public void bind(Task task) {
             this.task = task;
             nameTextView.setText(task.getName());
             dateTextView.setText(task.getDate().toString());
+            if(task.getCategory().equals(Category.HOME)) {
+                categoryImageView.setImageResource(R.mipmap.ic_home);
+            } else {
+                categoryImageView.setImageResource(R.mipmap.ic_studies);
+            }
+            statusCheckBox.setChecked(task.isDone());
+            if(task.isDone()){
+                nameTextView.setPaintFlags(nameTextView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            } else {
+                nameTextView.setPaintFlags(nameTextView.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
+            }
+        }
+
+        public CheckBox getCheckBox() {
+            return statusCheckBox;
         }
 
         @Override
@@ -94,6 +117,17 @@ public class TaskListFragment extends Fragment {
         public void onBindViewHolder(@NonNull TaskHolder holder, int position) {
             Task task = taskList.get(position);
             holder.bind(task);
+
+            CheckBox checkBox = holder.getCheckBox();
+            checkBox.setChecked(taskList.get(position).isDone());
+            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    Task task = taskList.get(holder.getBindingAdapterPosition());
+                    task.setDone(isChecked);
+                    holder.bind(task);
+                }
+            });
         }
 
         @Override

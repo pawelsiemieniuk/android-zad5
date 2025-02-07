@@ -15,14 +15,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import java.util.Calendar;
 import java.util.UUID;
 
 public class TaskFragment extends Fragment {
     public static final String ARG_TASK_ID = "arg_task_id";
+    private final Calendar calendar = Calendar.getInstance();
     private Task task;
 
     private EditText nameField;
-    private Button dateButton;
+    private EditText dateField;
     private CheckBox doneCheckBox;
 
     public static TaskFragment newInstance(UUID taskId) {
@@ -47,7 +49,7 @@ public class TaskFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_task, container, false);
 
         nameField    = view.findViewById(R.id.task_name);
-        dateButton   = view.findViewById(R.id.task_date);
+        dateField    = view.findViewById(R.id.task_date);
         doneCheckBox = view.findViewById(R.id.task_done);
 
         nameField.addTextChangedListener(new TextWatcher() {
@@ -67,8 +69,8 @@ public class TaskFragment extends Fragment {
             }
         });
 
-        dateButton.setText(task.getDate().toString());
-        dateButton.setEnabled(false);
+        dateField.setText(task.getDate().toString());
+        dateField.setEnabled(false);
 
         doneCheckBox.setChecked(task.isDone());
         doneCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> task.setDone(isChecked));

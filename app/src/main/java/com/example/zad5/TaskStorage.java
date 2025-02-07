@@ -17,6 +17,11 @@ public class TaskStorage {
             Task task = new Task();
             task.setName("zadanie " + i);
             task.setDone(i % 3 == 0);
+            if(i % 3 == 0) {
+                task.setCategory(Category.STUDIES);
+            } else {
+                task.setCategory(Category.HOME);
+            }
             taskList.add(task);
         }
     }
