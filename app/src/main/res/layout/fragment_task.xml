@@ -2,11 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="20dp"
-    android:orientation="vertical">
+    android:padding="20dp"
+    android:orientation="vertical"
+    android:background="@color/background">
 
+    <!--style="?android:listSeparatorTextViewStyle"-->
     <TextView
-        style="?android:listSeparatorTextViewStyle"
+        style="@style/task_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/name_label"/>
@@ -15,15 +17,19 @@
         android:id="@+id/task_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/name_hint"/>
+        android:hint="@string/name_hint"
+        android:textSize="18sp"
+        android:layout_marginBottom="20dp"
+        android:textColor="@color/primary"/>
 
     <TextView
-        style="?android:listSeparatorTextViewStyle"
-        android:layout_width="wrap_content"
+        style="@style/task_title"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/details_label"/>
 
     <EditText
+        style="@style/separator"
         android:id="@+id/task_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,15 +40,32 @@
         android:autofillHints=""
         android:inputType="date"/>
 
+
+    <TextView
+        style="@style/task_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/status_label"/>
+
     <CheckBox
+        style="@style/separator"
         android:id="@+id/task_done"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/done_label"/>
 
+    <TextView
+        style="@style/task_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/category_label"/>
+
     <Spinner
         android:id="@+id/task_category"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:padding="@dimen/task_item_padding"
+        android:textColor="@color/primary" />
 
 </LinearLayout>

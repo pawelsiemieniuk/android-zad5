@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="task_text">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/primary</item>
+        <item name="android:background">@color/background</item>
+        <item name="android:padding">@dimen/task_item_padding</item>
+    </style>
+
+    <style name="list_task_name" parent="task_text">
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+    <style name="list_task_date" parent="task_text">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="list_task_checkbox">
+        <item name="android:scaleX">1.5</item>
+        <item name="android:scaleY">1.5</item>
+        <item name="android:padding">@dimen/task_item_padding</item>
+        <item name="android:background">@color/secondary</item>
+    </style>
+
+    <style name="list_task_icon">
+        <item name="android:background">@color/secondary</item>
+        <item name="android:padding">@dimen/task_item_padding</item>
+    </style>
+
+    <style name="separator">
+        <item name="android:layout_marginBottom">20dp</item>
+    </style>
+    <style name="task_title">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:padding">@dimen/task_title_padding</item>
+        <item name="android:background">@color/secondary</item>
+        <item name="android:textColor">@color/primary</item>
+    </style>
+</resources>
