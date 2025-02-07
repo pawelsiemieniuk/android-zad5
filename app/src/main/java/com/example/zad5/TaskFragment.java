@@ -1,5 +1,6 @@
 package com.example.zad5;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -15,7 +16,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 import java.util.UUID;
 
 public class TaskFragment extends Fragment {
@@ -69,12 +73,31 @@ public class TaskFragment extends Fragment {
             }
         });
 
-        dateField.setText(task.getDate().toString());
-        dateField.setEnabled(false);
+        DatePickerDialog.OnDateSetListener date = (view12, year, month, day) -> {
+            calendar.set(Calendar.YEAR, year);
+            calendar.set(Calendar.MONTH, month);
+            calendar.set(Calendar.DAY_OF_MONTH, day);
+            setupDateFieldValue(calendar.getTime());
+            task.setDate(calendar.getTime());
+        };
+        dateField.setOnClickListener(view1 ->
+                new DatePickerDialog(getContext(), date,
+                        calendar.get(Calendar.YEAR),
+                        calendar.get(Calendar.MONTH),
+                        calendar.get(Calendar.DAY_OF_MONTH)
+                ).show()
+        );
+        setupDateFieldValue(task.getDate());
 
         doneCheckBox.setChecked(task.isDone());
         doneCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> task.setDone(isChecked));
 
         return view;
+    }
+
+    private void setupDateFieldValue(Date date) {
+        Locale locale = new Locale("pl", "PL");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy", locale);
+        dateField.setText(dateFormat.format(date));
     }
 }
