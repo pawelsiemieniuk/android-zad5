@@ -3,6 +3,7 @@ package com.example.zad5;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,18 +15,31 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-public class TaskFragment extends Fragment {
+import java.util.UUID;
 
+public class TaskFragment extends Fragment {
+    public static final String ARG_TASK_ID = "arg_task_id";
     private Task task;
 
     private EditText nameField;
     private Button dateButton;
     private CheckBox doneCheckBox;
 
+    public static TaskFragment newInstance(UUID taskId) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(ARG_TASK_ID, taskId);
+
+        TaskFragment taskFragment = new TaskFragment();
+        taskFragment.setArguments(bundle);
+
+        return taskFragment;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        task = new Task();
+        UUID taskId = (UUID) getArguments().getSerializable(ARG_TASK_ID);
+        task = TaskStorage.getInstance().getTask(taskId);
     }
 
     @Override

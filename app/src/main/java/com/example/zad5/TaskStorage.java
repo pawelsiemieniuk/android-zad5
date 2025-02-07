@@ -1,7 +1,10 @@
 package com.example.zad5;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class TaskStorage {
     private static TaskStorage instance;
@@ -27,5 +30,18 @@ public class TaskStorage {
             }
         }
         return instance;
+    }
+
+    public List<Task> getTasks() {
+        return taskList;
+    }
+
+    public Task getTask(UUID taskId) {
+        for(Task task : taskList){
+            if(task.getId().equals(taskId)){
+                return task;
+            }
+        }
+        return null;
     }
 }
