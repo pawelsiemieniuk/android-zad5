@@ -3,7 +3,11 @@ package com.example.zad5;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
@@ -13,6 +17,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -34,6 +39,35 @@ public class TaskListFragment extends Fragment {
         updateView();
 
         return view;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.fragment_task_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        /*switch(item.getItemId()){
+            case R.id.new_task:
+                Task task = new Task();
+                TaskStorage.getInstance().addTask(task);
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                intent.putExtra(TaskListFragment.KEY_EXTRA_TASK_ID, task.getId());
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }*/
+        //return super.onOptionsItemSelected(item);
+        return false;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     @Override
